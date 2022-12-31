@@ -160,6 +160,24 @@ class BanglaicxReportController extends Controller
 
     }
 
+	/**
+	
+	Sample query
+     public function dayWiseQuery($getFromDate, $getToDate, $direction) {
+		return DB::connection('con5')->table('CallSummary as cm')
+				->select(DB::raw("convert(VARCHAR(30),cm.TrafficDate,112)"),
+					DB::raw("{fn CONCAT(LEFT({fn DAYNAME(cm.TrafficDate)}, 3), {fn CONCAT(' ',REPLACE(convert(VARCHAR(30),cm.TrafficDate,106),' ', '-'))})} as TrafficDate"),
+					DB::raw("SUM(cm.SuccessfulCall) as 'SuccessfulCall'"), 
+					DB::raw("(SUM(cm.CallDuration)/60) as Duration"),
+					DB::raw("(SUM(cm.CallDuration)/60)/SUM(cm.SuccessfulCall) as ACD"))
+				->whereBetween('cm.TrafficDate', array($getFromDate, $getToDate))
+				->where('cm.ReportTrafficDirection','=', $direction)
+				->groupBy(DB::raw("convert(VARCHAR(30),cm.TrafficDate,112)"), DB::raw("{fn CONCAT(LEFT({fn DAYNAME(cm.TrafficDate)}, 3), {fn CONCAT(' ',REPLACE(convert(VARCHAR(30),cm.TrafficDate,106),' ', '-'))})}"))
+				->orderBy(DB::raw("convert(VARCHAR(30),cm.TrafficDate,112)"))
+				->get();
+	}
+     */
+	
     //Set Border and text bold style
 
     /**
